@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Kirim Bunga untuk Tasya</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+      background-color: #fff0f5;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-size: cover;
+      background-position: center;
+      transition: background-image 1s ease-in-out;
+    }
+    h1 {
+      color: #e75480;
+      text-shadow: 2px 2px 5px white;
+    }
+    #pesan {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #222;
+      display: none;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 1s ease;
+      background: rgba(255,255,255,0.7);
+      padding: 15px;
+      border-radius: 15px;
+    }
+    input {
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #e75480;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #c73c65;
+    }
+    .bunga {
+      margin-top: 10px;
+    }
+    .bunga img {
+      margin: 5px;
+      border-radius: 15px;
+      opacity: 0;
+      transform: scale(0.5);
+      transition: all 1s ease;
+    }
+    .bunga img.muncul {
+      opacity: 1;
+      transform: scale(1);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🌹 Kirim Bunga untuk Tasya 🌹</h1>
+  <p>Tulis nama pengirim lalu klik tombol untuk kirim bunga!</p>
+
+  <input type="text" id="pengirim" placeholder="Masukkan nama kamu" value="Fian">
+  <br>
+  <button onclick="Lihat()">Kirim Bunga</button>
+
+  <div id="pesan">
+    <h2 id="judulPesan">💐 Untuk Tasya 💐</h2>
+    <p id="teksPesan"></p>
+    <div class="bunga" id="emojiBunga">
+      <img src="bunga1.png" alt="Bunga 1" style="width:80px;">
+      <img src="bunga2.png" alt="Bunga 2" style="width:120px;">
+      <img src="bunga3.png" alt="Bunga 3" style="width:200px;">
+    </div>
+  </div>
+
+  <script>
+    // === Daftar background ===
+    let backgrounds = [
+      "bg1.jpg",
+      "bg2.jpg",
+      "bg3.jpg",
+      "bg4.jpg",
+      "bg5.jpg",
+      "bg6.jpg"
+    ];
+
+    // === Pilih random saat reload ===
+    let currentBg = Math.floor(Math.random() * backgrounds.length);
+    document.body.style.backgroundImage = `url('${backgrounds[currentBg]}')`;
+
+    // === Slideshow setelah itu ===
+    setInterval(() => {
+      currentBg = (currentBg + 1) % backgrounds.length;
+      document.body.style.backgroundImage = `url('${backgrounds[currentBg]}')`;
+    }, 4000);
+
+    // === Fungsi Kirim Bunga (muncul delay) ===
+    function kirimBunga() {
+      let nama = document.getElementById("pengirim").value;
+      if (nama.trim() === "") {
+        alert("Isi dulu nama pengirim ya!");
+        return;
+      }
+
+      let pesan = document.getElementById("pesan");
+      document.getElementById("teksPesan").innerText = "Bunga dari " + nama + " untuk Tasya ❤️";
+
+      pesan.style.display = "block";
+      setTimeout(() => {
+        pesan.style.opacity = "1";
+        pesan.style.transform = "translateY(0)";
+      }, 200);
+
+      let bungaGambar = document.querySelectorAll(".bunga img");
+
+      bungaGambar.forEach((img, index) => {
+        setTimeout(() => {
+          img.classList.add("muncul");
+        }, 1000 + index * 1000); // delay 1 detik antar bunga
+      });
+    }
+  </script>
+
+</body>
+</html>
